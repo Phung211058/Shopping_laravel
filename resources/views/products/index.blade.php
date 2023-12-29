@@ -83,30 +83,41 @@
                             </a>
                             <div class="collapse" id="collapseExample">
                                 <ul class="navbar-nav">
+                                    {{-- ______________________PRODUCTS OPTIONS__________________ --}}
                                     <li class="nav-item">
                                         <button class="nav-link ms-6" id="product">
                                             <i class="bi bi-basket-fill"></i>
                                             <span>Products</span>
                                         </button>
                                     </li>
+                                    {{-- ___________________________!!!!!!!_____________________________ --}}
+
+                                    {{-- ______________________DISCOUNTS OPTIONS__________________ --}}
                                     <li class="nav-item">
                                         <button class="nav-link ms-6">
                                             <i class="bi bi-gift-fill"></i>
                                             <span>Discounts</span>
                                         </button>
                                     </li>
+                                    {{-- ___________________________!!!!!!!_____________________________ --}}
+
+                                    {{-- ______________________PRODUCTS OPTIONS__________________ --}}
                                     <li class="nav-item">
                                         <button class="nav-link ms-6">
                                             <i class="bi bi-person-badge"></i>
                                             <span>Clients</span>
                                         </button>
                                     </li>
+                                    {{-- ___________________________!!!!!!!_____________________________ --}}
+
+                                    {{-- ___________________________!!!!!!!_____________________________ --}}
                                     <li class="nav-item">
                                         <button class="nav-link ms-6">
                                             <i class="bi bi-stripe"></i>
                                             <span>Payments</span>
                                         </button>
                                     </li>
+                                    {{-- ___________________________!!!!!!!_____________________________ --}}
                                 </ul>
                             </div>
                             {{-- <a class="nav-link" href="#">
@@ -302,88 +313,167 @@
                     </div>
                     <div class="card shadow border-0 mb-7">
                         <div class="card-header d-flex justify-content-between">
-                            <h5 class="mb-0">Applications</h5>
+                            <h5 class="mb-0 table_head">Applications</h5>
                             {{-- <div class="input-group rounded-pill">
                                 <input type="text" class="form-control rounded-start-circle" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
                                 <button class="btn btn-outline-secondary rounded-end-circle" type="button" id="button-addon2">Button</button>
                              </div> --}}
+                             {{-- $$$$_____________SEARCH DATA____________$$$$ --}}
                             <div class=" form-group search_item_contatiner">
-                                <input type="text" class="form-control item rounded-pill search_item" placeholder="Search">
+                                <input type="text" class="form-control item rounded-pill search_item"
+                                    placeholder="Search">
                             </div>
-                            <a href="#" class="btn d-inline-flex btn-sm btn-primary mx-1" id="create" data-bs-toggle="modal">
+                            {{-- $$$$_______________________________________$$$$ --}}
+
+                            {{-- __________________CREATE BUTTON________________ --}}
+                            <a href="#" class="btn d-inline-flex btn-sm btn-primary mx-1" id="create"
+                                data-bs-toggle="modal">
                                 <span class=" pe-2">
                                     <i class="bi bi-plus"></i>
                                 </span>
                                 <span>Create</span>
                             </a>
+                            {{-- __________________________________________________ --}}
                         </div>
-                        <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        {{-- <<<<<<<<<<<<<<<<< CREATE PRODUCT MODAL >>>>>>>>>>>>>>>>>>> --}}
+                        <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
                             <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h1 class="modal-title fs-4 text-success d-flex justify-content-center" id="exampleModalLabel">Create product</h1>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-4 text-success d-flex justify-content-center"
+                                            id="exampleModalLabel">Create product</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{-- <<<<<<<<<<<<<<<<<<<< FORM TO ADD PRODUCT >>>>>>>>>>>>>>>>>>>>>> --}}
+                                        <form action="#" method="POST" enctype="multipart/form-data"
+                                            id="add_product_form">
+                                            @csrf
+                                            <div class="form-icon">
+                                                <span><i class="icon icon-user"></i></span>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <input type="text" class="form-control item rounded-pill"
+                                                    name="name" placeholder="Name" autocomplete="off" required>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <input type="text" class="form-control item rounded-pill"
+                                                    name="category" placeholder="Cateogry" autocomplete="off"
+                                                    required>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <textarea type="text" class="form-control item" name="description" placeholder="Description" autocomplete="off"
+                                                    required></textarea>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <input type="number" class="form-control item rounded-pill"
+                                                    name="price" placeholder="Price" autocomplete="off" required>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <select class="form-control item rounded-pill" name="discount"
+                                                    placeholder="Price">
+                                                    @foreach ($discounts as $discount)
+                                                        <option value="{{ $discount->id }}">{{ $discount->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <input type="number" class="form-control item rounded-pill"
+                                                    name="quantity" placeholder="Quantity" autocomplete="off"
+                                                    required>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <input type="file" class="form-control item rounded-pill"
+                                                    name="Image">
+                                            </div>
+                                            <div class="form-group d-flex justify-content-center mt-3">
+                                                <button type="submit"
+                                                    class="btn btn-info rounded-pill text-white create-accoun mt-3t" id="create_product">Create</button>
+                                            </div>
+                                        </form>
+                                        {{-- <<<<<<<<<<<<<<<<<<<<<<<<<<< (*!*) >>>>>>>>>>>>>>>>>>>>>>>>>>>> --}}
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    <form action="/create" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-icon">
-                                            <span><i class="icon icon-user"></i></span>        
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <input type="text" class="form-control item rounded-pill" name="name" placeholder="Name" autocomplete="off" required>
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <input type="text" class="form-control item rounded-pill" name="category" placeholder="Cateogry" autocomplete="off" required>
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <textarea type="text" class="form-control item" name="description" placeholder="Description" autocomplete="off" required></textarea>
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <input type="number" class="form-control item rounded-pill" name="price" placeholder="Price" autocomplete="off" required>
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <select class="form-control item rounded-pill" name="discount" placeholder="Price">
-                                                @foreach ($discounts as $discount)
-                                                    <option value="{{ $discount->id }}">{{ $discount->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <input type="number" class="form-control item rounded-pill" name="quantity" placeholder="Quantity" autocomplete="off" required>
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <input type="file" class="form-control item rounded-pill" name="Image">
-                                        </div>
-                                        <div class="form-group d-flex justify-content-center mt-3">
-                                            <button type="submit" class="btn btn-info rounded-pill text-white create-accoun mt-3t">Create</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                {{-- <div class="modal-footer d-flex justify-content-center">
-                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Save changes</button>
-                                </div> --}}
-                              </div>
                             </div>
-                          </div>
-                          <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        </div>
+                        {{-- <<<<<<<<<<<<<<<<<<<<<<<< (*!*) >>>>>>>>>>>>>>>>>>>>>>>>>>>>> --}}
+
+                        {{-- <<<<<<<<<<<<<<<<< UPDATE PRODUCT MODAL >>>>>>>>>>>>>>>>>>> --}}
+                        <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
                             <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Modal</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{-- <<<<<<<<<<<<<<< UPDATE PRODUCT FORM >>>>>>>>>>>>>>>>> --}}
+                                        <form action="#" method="POST" enctype="multipart/form-data"
+                                            id="update_product_form">
+                                            @csrf
+                                            <div class="form-icon">
+                                                <span><i class="icon icon-user"></i></span>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <input type="text" class="form-control item rounded-pill"
+                                                    name="id" id="id" autocomplete="off" required hidden>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <input type="text" class="form-control item rounded-pill"
+                                                    name="name"  id="name" autocomplete="off" required>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <input type="text" class="form-control item rounded-pill"
+                                                    name="category" id="category" placeholder="Cateogry" autocomplete="off"
+                                                    required>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <textarea type="text" class="form-control item" name="description" id="description" placeholder="Description" autocomplete="off"
+                                                    required></textarea>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <input type="number" class="form-control item rounded-pill" id="price"
+                                                    name="price" placeholder="Price" autocomplete="off" required>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <select class="form-control item rounded-pill" name="discount" id="discount"
+                                                    placeholder="Price">
+                                                    @foreach ($discounts as $discount)
+                                                        <option value="{{ $discount->id }}">{{ $discount->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <input type="number" class="form-control item rounded-pill" id="quantity"
+                                                    name="quantity" placeholder="Quantity" autocomplete="off"
+                                                    required>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <input type="file" class="form-control item rounded-pill" id="Image"
+                                                    name="Image">
+                                            </div>
+                                            <div class="form-group d-flex justify-content-center mt-3">
+                                                <button type="submit"
+                                                    class="btn btn-info rounded-pill text-white create-accoun mt-3t" id="create_product">Update</button>
+                                            </div>
+                                        </form>
+                                        {{-- <<<<<<<<<<<<<<<<<<<< (^-^) >>>>>>>>>>>>>>>>>>>>>> --}}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                  <p>Update modal</p>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                              </div>
                             </div>
-                          </div>
+                        </div>
+                        {{-- <<<<<<<<<<<<<<<<<<<<<<<<< (!*-*!) >>>>>>>>>>>>>>>>>>>>>>> --}}
                         <div class="table-responsive">
                             <table class="table table-hover table-nowrap text-center">
                                 <thead class="thead-light">
@@ -472,7 +562,7 @@
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="{{ asset('js/index.js') }}"></script>
+    <script src="{{ asset('js/product.js') }}"></script>
 </body>
 
 

@@ -89,7 +89,13 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::find($id);
+        $discount = Discount::all();
+        return response()->json([
+            'status' => 200,
+            'product' => $product,
+            'discount' => $discount,
+        ]);
     }
 
     /**
@@ -97,7 +103,25 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $products = Product::find($id);
+        if($request->hasFile('Image')){
+            $file = $request->Image;
+            $file_name = $file->getClientoriginalName();
+            $file->move(public_path('images'), $file_name);
+            $request->merge(['image' => $file_name]);
+            $products->image = $request->image;
+        }
+        $products->name = $request->name;
+        $products->discount_id = $request->discount;
+        $products->category = $request->category;
+        $products->price = $request->price;
+        $products->quantity = $request->quantity;
+        $products->description = $request->description;
+        $products->save();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Successfully',
+        ]);
     }
 
     /**

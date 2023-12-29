@@ -27,3 +27,5 @@ Route::get('/discount', [DiscountController::class, 'index']);
 Route::post('/discount', [DiscountController::class, 'store']);
 Route::get('/fetch_products', [ProductController::class, 'fetch_products']);
 Route::delete('/delete-product/{id}', [ProductController::class, 'destroy']);
+Route::get('/edit-product/{id}',[ProductController::class, 'edit']);
+Route::post('/update/{id}', [ProductController::class, 'update']);

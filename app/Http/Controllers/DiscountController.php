@@ -16,12 +16,20 @@ class DiscountController extends Controller
         return view('discounts.index', compact('discounts'));
     }
 
+    public function fetch_discounts(){
+        $discounts = Discount::all();
+        return response()->json([
+            'status' => 200,
+            'discounts' => $discounts
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view ('discounts.create');
+
     }
 
     /**
@@ -33,7 +41,10 @@ class DiscountController extends Controller
         $discount->name = $request->name;
         $discount->discount_percent = $request->percent;
         $discount->save();
-        return redirect('/discount');
+        return response()->json([
+            'status' => 200,
+            'message' => 'Successfully'
+        ]);
     }
 
     /**
@@ -65,6 +76,11 @@ class DiscountController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $discount = Discount::find($id);
+        $discount->delete();
+        return response()->json([
+            'status' => 200,
+            'discount' => $discount
+        ]);
     }
 }

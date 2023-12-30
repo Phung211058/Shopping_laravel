@@ -22,8 +22,8 @@ class ProductController extends Controller
 
     public function fetch_products()
     { 
-        $products = Product::all();
         $discounts = Discount::all();
+        $products = Product::all();
         foreach ($products as $product) {
             // formatted_price IS A VALUE THAT HAVE FOMATTED FROM THE PRICE VALUE IN THE DATABASE
             $product->formatted_price = number_format($product->price, 0, ',', '.');
@@ -34,6 +34,34 @@ class ProductController extends Controller
         }
         return response()->json([
             'status' => 100,
+            'products' => $products,
+            'discounts' => $discounts
+        ]);
+    }
+
+    public function search_products(Request $request) {
+        $discounts = Discount::all();
+        $search = $request->input('search_product');
+
+        if (!empty($search)) {
+            $products = Product::where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('price', 'LIKE', '%' . $search . '%')
+                    ->orWhere('category', 'LIKE', '%' . $search . '%');
+            })->get();
+        } else {
+          $products = Product::all();
+        }
+        foreach ($products as $product) {
+            // formatted_price IS A VALUE THAT HAVE FOMATTED FROM THE PRICE VALUE IN THE DATABASE
+            $product->formatted_price = number_format($product->price, 0, ',', '.');
+            // formatted_sale_price VALUE IS CREATED AND ASSIGNED TO THE VALUE THAT IS RETURNED FROM getFormattedSalePriceAttribute() FUNCTION IN THE PRODUCT MODEL
+            $product->formatted_sale_price = $product->getFormattedSalePriceAttribute();
+            // discount_name VALUE IS CREATED AND ASSIGNED TO THE "DISCOUNT NAME" IN THE DISCOUNT TABLE. BEFORE ASSIGNING, CHECKING IF THE PRODUCT HAS ANY DISCOUNT
+            $product->discount_name = $product->discount ? $product->discount->name : ' ';
+        }
+        return response()->json([
+            'status' => 200,
             'products' => $products,
             'discounts' => $discounts
         ]);
@@ -54,6 +82,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $discounts = Discount::all();
         if($request->hasFile('Image')){
             $file = $request->Image;
             $file_name = $file->getClientoriginalName();
@@ -71,9 +100,15 @@ class ProductController extends Controller
         $products->save();
         return response()->json([
             'status' => 200,
-            'message' => 'Successfully',
+            'discounts' => $discounts,
         ]);
         // return redirect('/');
+    }
+
+    public function getDiscounts()
+    {
+        $discounts = Discount::all();
+        return response()->json($discounts);
     }
 
     /**
@@ -90,11 +125,9 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $product = Product::find($id);
-        $discount = Discount::all();
         return response()->json([
             'status' => 200,
             'product' => $product,
-            'discount' => $discount,
         ]);
     }
 
@@ -130,35 +163,10 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         $product = Product::find($id);
-        // if ($product) {
-        //     // Đường dẫn đến thư mục public/images
-        //     $imagePath = public_path('images');
-        //     // Tên tệp tin ảnh
-        //     $imageName = $product->image;
-        //     // Kiểm tra xem tệp tin tồn tại trước khi xóa hoặc chuyển
-        //     if (File::exists($imagePath . '/' . $imageName)) {
-        //         // Đường dẫn đến thư mục public/deleted_images
-        //         $deletedImagePath = public_path('deleted_images');
-        //         // Kiểm tra xem thư mục deleted_images có tồn tại chưa, nếu chưa thì tạo mới
-        //         // if (!File::exists($deletedImagePath)) {
-        //         //     File::makeDirectory($deletedImagePath, 0755, true);
-        //         // }
-        //         // Đường dẫn mới của tệp tin ảnh trong thư mục deleted_images
-        //         $newImagePath = $deletedImagePath . '/' . $imageName;
-        //         // Di chuyển tệp tin ảnh sang thư mục deleted_images
-        //         File::move($imagePath . '/' . $imageName, $newImagePath);
-        //         // Xóa sản phẩm từ database
-                $product->delete();
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'deleted successfully'
-                ]);
-        //     }
-        // }
-
-        // return response()->json([
-        //     'status' => 404,
-        //     'message' => 'product not found'
-        // ], 404);
+        $product->delete();
+        return response()->json([
+            'status' => 200,
+            'product' => $product
+        ]);
     }
 }

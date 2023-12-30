@@ -1,24 +1,43 @@
 $(document).ready(function () {
     // CLICK ON THE OPTION PRODUCT IN THE COLLECTION
-    $(document).on('click', '#product', function (e) {
+    $(document).on('click', '#product_option', function (e) {
         e.preventDefault();
-        // CHANGE THE LINK OF THE BUTTION TO CREATE PRODUCT
-        var link = $('#create');
+        // GET THE BUTTION TO CREATE PRODUCT
+        var button_create = $('#create');
         // link.href ="/create";
 
         // CALL THE MODAL TO CREATE PRODUCT BY DATA-BS-TARGET ATTRIBUTE
-        link.attr('data-bs-target', '#createModal');
-
+        button_create.attr('data-bs-target', '#createProductModal');
+        // CHANGE THE HEAD TABLE NAME
         $('.table_head').text('Products');
+        // CHANGE ID OF THE SEARCH INPUT
+        var search_product = document.getElementById('search');
+        search_product.classList.remove('search_discount');
+        search_product.classList.add('search_product');
 
         //_______________________________________________________________________________
         fetch_products();
+
+        // Show all discount in select tag by using ajax to auto load all discounts. If showing discount by php, we need to reload page to show all discounts.
+        $.ajax({
+            type: 'GET',
+            url: '/get-discounts',
+            dataType: 'json',
+            success: function (response) {
+                // Xóa tất cả các option hiện tại trong select
+                $('.discount_select').empty();
+                // Thêm các option mới từ dữ liệu nhận được
+                $.each(response, function (index, discount) {
+                    $('.discount_select').append('<option value="' + discount.id + '">' + discount.name + '</option>');
+                });
+            }
+        });
 
         // FUNCTION TO SHOW ALL PRODUCTS
         function fetch_products() {
             $.ajax({
                 type: 'GET',
-                url: 'fetch_products',
+                url: 'fetch-products',
                 dataType: 'json',
                 success: function (response) {
                     $('tbody').html('');
@@ -32,7 +51,6 @@ $(document).ready(function () {
                         <th scope="col">Sale price</th>\
                         <th scope="col">Quantity</th>\
                         <th scope="col">Action</th>\
-                        <th></th>\
                     </tr>');
                     $.each(response.products, function (key, val) {
                         $('tbody').append('<tr>\
@@ -44,7 +62,7 @@ $(document).ready(function () {
                                 <td class="text-warning">' + val.formatted_sale_price + '<span class="text-danger"> VND</span></td>\
                                 <td>' + val.quantity + '</td>\
                                 <td>\
-                                    <button type="submit" value=" ' +val.id+ ' " class="btn btn-sm btn-neutral" id="edit_product_btn" data-bs-toggle="modal" data-bs-target="#updateModal">Edit</button>\
+                                    <button type="submit" value=" ' +val.id+ ' " class="btn btn-sm btn-neutral" id="edit_product_btn" data-bs-toggle="modal" data-bs-target="#updateProductModal">Edit</button>\
                                     <button type="submit" value=" ' +val.id+ ' "class="btn btn-sm btn-square btn-neutral text-danger-hover" id="delete_product_btn"> <i class="bi bi-trash"></i></button>\
                                 </td>\
                             </tr>');
@@ -59,11 +77,10 @@ $(document).ready(function () {
             e.preventDefault();
             // GET ID VALUE FROM DELETE BUTTON
             let product_id = $(this).val();
-            console.log(product_id);
             // SEND AN ALERT TO ASK USER CONFIRM 
             Swal.fire({
                 title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                text: "!",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -82,15 +99,15 @@ $(document).ready(function () {
                         url: "/delete-product/" + product_id,
                         dataType: 'json',
                         success: function (response) {
-                            console.log(response);
                             fetch_products();
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: response.product.name+" has been deleted",
+                                icon: "success"
+                            });
                         }
                     });
-                    Swal.fire({
-                        title: "Deleted!",
-                        text: "Your file has been deleted.",
-                        icon: "success"
-                    });
+
                 }
             });
         })
@@ -102,7 +119,7 @@ $(document).ready(function () {
             // GET DATA FROM FORM
             var data = new FormData(this);
             $.ajax({
-                url:'/create',
+                url:'/product-create',
                 type: 'POST',
                 data: data,
                 cache: false,
@@ -111,7 +128,7 @@ $(document).ready(function () {
                 success: function(response) {
                     if (response.status == 200) {
                         $('#add_product_form')[0].reset();
-                        $('#createModal').modal('hide');
+                        $('#createProductModal').modal('hide');
                         fetch_products();
                         Swal.fire({
                             title: "Successfully",
@@ -140,7 +157,7 @@ $(document).ready(function () {
 
                     // Chọn giá trị trong thẻ select
                     let selectedDiscountId = response.product.discount_id;
-                    $('#discount').val(selectedDiscountId);
+                    $('.discount_select').val(selectedDiscountId);
                     $('Image').val(response.product.image);
                 }
             })
@@ -162,7 +179,7 @@ $(document).ready(function () {
                 success: function(response) {
                     if (response.status == 200) {
                         $('#update_product_form')[0].reset();
-                        $('#updateModal').modal('hide');
+                        $('#updateProductModal').modal('hide');
                         fetch_products();
                         Swal.fire({
                             title: "Successfully",
@@ -172,6 +189,43 @@ $(document).ready(function () {
                     }
                 }
             });
+        })
+
+        $(document).on('keyup', '.search_product', function(e){
+            e.preventDefault();
+            let search_string = $('.search_product').val();
+            $.ajax({
+                type: 'GET',
+                url: 'search-product',
+                data: { search_product: search_string },
+                dataType: 'json',
+                success: function (response) {
+                    if (response && response.products.length > 0) {
+                        $('tbody').html('');
+                        // Xử lý dữ liệu ở đây, có thể sử dụng vòng lặp để thêm vào tbody
+                        $.each(response.products, function(key, val) {
+                            // Thêm sản phẩm vào tbody, ví dụ:
+                            $('tbody').append('<tr>\
+                            <td><img alt="" src="/images/' + val.image + ' " class="avatar avatar-sm rounded-circle me-2"></td>\
+                            <td>' + val.name + '</td>\
+                            <td>' + val.category + '</td>\
+                            <td class="text-warning">' + val.formatted_price + '<span class="text-danger"> VND</span> </td>\
+                            <td>' + val.discount_name + '</td>\
+                            <td class="text-warning">' + val.formatted_sale_price + '<span class="text-danger"> VND</span></td>\
+                            <td>' + val.quantity + '</td>\
+                            <td>\
+                                <button type="submit" value=" ' +val.id+ ' " class="btn btn-sm btn-neutral" id="edit_product_btn" data-bs-toggle="modal" data-bs-target="#updateModal">Edit</button>\
+                                <button type="submit" value=" ' +val.id+ ' "class="btn btn-sm btn-square btn-neutral text-danger-hover" id="delete_product_btn"> <i class="bi bi-trash"></i></button>\
+                            </td>\
+                        </tr>');
+                        }
+                        );
+                    } else {
+                        // Hiển thị thông báo khi không có dữ liệu
+                        $('tbody').html('<tr><td colspan="8">Không có kết quả</td></tr>');
+                    }
+                }
+            })
         })
     })
 

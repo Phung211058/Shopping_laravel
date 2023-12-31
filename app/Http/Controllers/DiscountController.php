@@ -60,7 +60,11 @@ class DiscountController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $discount = Discount::find($id);
+        return response()->json([
+            'status' => 200,
+            'discount' => $discount,
+        ]);
     }
 
     /**
@@ -68,7 +72,14 @@ class DiscountController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $discount = Discount::find($id);
+        $discount->name = $request->name;
+        $discount->discount_percent = $request->percent;
+        $discount->save();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Successfully',
+        ]);
     }
 
     /**

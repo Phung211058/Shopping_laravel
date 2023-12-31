@@ -3,10 +3,10 @@ $(document).ready(function () {
         e.preventDefault();
         // GET THE BUTTION TO CREATE PRODUCT
         var button_create = $('#create');
-        // link.href ="/create";
-
         // CALL THE MODAL TO CREATE PRODUCT BY DATA-BS-TARGET ATTRIBUTE
         button_create.attr('data-bs-target', '#createDiscountModal');
+
+
         // CHANGE THE HEAD TABLE NAME
         $('.table_head').text('Discounts');
         // CHANGE ID OF THE SEARCH INPUT
@@ -50,6 +50,11 @@ $(document).ready(function () {
             e.preventDefault();
             // GET DATA FROM FORM
             var data = new FormData(this);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 url:'/discount-create',
                 type: 'POST',
@@ -108,6 +113,59 @@ $(document).ready(function () {
                         }
                     });
 
+                }
+            });
+        })
+
+        $(document).on('click', '#edit_discount_btn', function(e){
+            e.preventDefault();
+            let discount_id = $(this).val();
+            console.log(discount_id);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: '/edit-discount/'+discount_id,
+                success: function(response){
+                    $('.update_discount_id').val(discount_id);
+                    $('.update_discount_name').val(response.discount.name);
+                    $('.update_discount_percent').val(response.discount.discount_percent);
+                }
+            })
+        })
+
+        $(document).on('submit', '#update_discount_form', function(e) {
+            e.preventDefault();
+            // GET DATA FROM FORM
+            var data = new FormData(this);
+            var discount_id = $('.update_discount_id').val();
+            var discount_name = $('.update_discount_name').val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url:'/update-discount/'+discount_id,
+                type: 'POST',
+                data: data,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.status == 200) {
+                        $('#update_discount_form')[0].reset();
+                        $('#updateDiscountModal').modal('hide');
+                        fetch_discounts();
+                        Swal.fire({
+                            title: "Successfully",
+                            text: 'You have updated " ' +discount_name+ ' "',
+                            icon: "success",
+                        })
+                    }
                 }
             });
         })

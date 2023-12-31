@@ -4,10 +4,10 @@ $(document).ready(function () {
         e.preventDefault();
         // GET THE BUTTION TO CREATE PRODUCT
         var button_create = $('#create');
-        // link.href ="/create";
 
         // CALL THE MODAL TO CREATE PRODUCT BY DATA-BS-TARGET ATTRIBUTE
         button_create.attr('data-bs-target', '#createProductModal');
+
         // CHANGE THE HEAD TABLE NAME
         $('.table_head').text('Products');
         // CHANGE ID OF THE SEARCH INPUT
@@ -80,7 +80,7 @@ $(document).ready(function () {
             // SEND AN ALERT TO ASK USER CONFIRM 
             Swal.fire({
                 title: "Are you sure?",
-                text: "!",
+                text: "You won't be able to revert this!",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -118,6 +118,11 @@ $(document).ready(function () {
             e.preventDefault();
             // GET DATA FROM FORM
             var data = new FormData(this);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 url:'/product-create',
                 type: 'POST',
@@ -125,7 +130,7 @@ $(document).ready(function () {
                 cache: false,
                 processData: false,
                 contentType: false,
-                success: function(response) {
+                success: function(response) { 
                     if (response.status == 200) {
                         $('#add_product_form')[0].reset();
                         $('#createProductModal').modal('hide');
@@ -144,21 +149,27 @@ $(document).ready(function () {
         $(document).on('click', '#edit_product_btn', function(e){
             e.preventDefault();
             let product_id = $(this).val();
+            console.log(product_id);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 type: "GET",
                 url: '/edit-product/'+product_id,
                 success: function(response){
-                    $('#id').val(product_id);
-                    $('#name').val(response.product.name);
-                    $('#category').val(response.product.category);
-                    $('#description').val(response.product.description);
-                    $('#price').val(response.product.price);
-                    $('#quantity').val(response.product.quantity);
+                    $('.update_product_id').val(product_id);
+                    $('.update_product_name').val(response.product.name);
+                    $('.update_product_category').val(response.product.category);
+                    $('.update_product_description').val(response.product.description);
+                    $('.update_product_price').val(response.product.price);
+                    $('.update_product_quantity').val(response.product.quantity);
 
                     // Chọn giá trị trong thẻ select
-                    let selectedDiscountId = response.product.discount_id;
-                    $('.discount_select').val(selectedDiscountId);
-                    $('Image').val(response.product.image);
+                    // let selectedDiscountId = response.product.discount_id;
+                    $('.discount_select').val(response.product.discount_id);
+                    // $('.update_product_image').val(response.product.image);
                 }
             })
         })
@@ -167,10 +178,15 @@ $(document).ready(function () {
             e.preventDefault();
             // GET DATA FROM FORM
             var data = new FormData(this);
-            var product_id = $('#id').val();
-            var product_name = $('#name').val();
+            var product_id = $('.update_product_id').val();
+            var product_name = $('.update_product_name').val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
-                url:'/update/'+product_id,
+                url:'/update-product/'+product_id,
                 type: 'POST',
                 data: data,
                 cache: false,

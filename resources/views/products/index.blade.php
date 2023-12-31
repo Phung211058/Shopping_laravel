@@ -336,7 +336,7 @@
                             {{-- __________________________________________________ --}}
                         </div>
                         {{-- <<<<<<<<<<<<<<<<< CREATE PRODUCT MODAL >>>>>>>>>>>>>>>>>>> --}}
-                        <div class="modal fade" id="createProductModal" tabindex="-1"
+                        <div class="modal fade" id="createProductModal" tabindex="-1" 
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -419,30 +419,30 @@
                                             id="update_product_form">
                                             @csrf
                                             <div class="form-group mb-3">
-                                                <input type="text" class="form-control item rounded-pill"
-                                                    name="id" id="id" autocomplete="off" required hidden>
+                                                <input type="text" class="form-control item rounded-pill update_product_id"
+                                                    name="id"  autocomplete="off" required hidden>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <input type="text" class="form-control item rounded-pill"
-                                                    name="name" id="name" autocomplete="off" required>
+                                                <input type="text" class="form-control item rounded-pill update_product_name"
+                                                    name="name"  autocomplete="off" required>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <input type="text" class="form-control item rounded-pill"
-                                                    name="category" id="category" placeholder="Cateogry"
+                                                <input type="text" class="form-control item rounded-pill update_product_category"
+                                                    name="category" placeholder="Cateogry"
                                                     autocomplete="off" required>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <textarea type="text" class="form-control item" name="description" id="description" placeholder="Description"
+                                                <textarea type="text" class="form-control item update_product_description" name="description" placeholder="Description"
                                                     autocomplete="off" required></textarea>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <input type="number" class="form-control item rounded-pill"
-                                                    id="price" name="price" placeholder="Price"
+                                                <input type="number" class="form-control item rounded-pill update_product_price"
+                                                    name="price" placeholder="Price"
                                                     autocomplete="off" required>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <select class="form-control item rounded-pill discount_select"
-                                                    name="discount" id="" placeholder="Price">
+                                                    name="discount" placeholder="Price">
                                                     {{-- @foreach ($discounts as $discount)
                                                         <option value="{{ $discount->id }}">{{ $discount->name }}
                                                         </option>
@@ -450,13 +450,13 @@
                                                 </select>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <input type="number" class="form-control item rounded-pill"
+                                                <input type="number" class="form-control item rounded-pill update_product_quantity"
                                                     id="quantity" name="quantity" placeholder="Quantity"
                                                     autocomplete="off" required>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <input type="file" class="form-control item rounded-pill"
-                                                    id="Image" name="Image">
+                                                <input type="file" class="form-control item rounded-pill update_product_image"
+                                                    name="Image">
                                             </div>
                                             <div class="form-group d-flex justify-content-center mt-3">
                                                 <button type="submit"
@@ -516,7 +516,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5 text-success" id="exampleModalLabel">Update
+                                        <h1 class="modal-title fs-5 text-warning " id="exampleModalLabel">Update
                                             Discount</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
@@ -526,22 +526,22 @@
                                         <form action="#" method="POST" id="update_discount_form"
                                             enctype="multipart/form-data">
                                             @csrf
-                                            <input type="text" class="form-control item rounded-pill"
-                                                    name="id" id="id" autocomplete="off" required hidden>
+                                            <input type="text" class="form-control item rounded-pill update_discount_id"
+                                                    name="id" autocomplete="off" required hidden>
                                             <div class="form-group mb-3">
-                                                <input type="text" class="form-control item rounded-pill"
-                                                    name="name" id="name" placeholder="Name"
+                                                <input type="text" class="form-control item rounded-pill update_discount_name"
+                                                    name="name" placeholder="Name"
                                                     autocomplete="off" required>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <input type="number" class="form-control item rounded-pill"
-                                                    name="percent" id="percent" placeholder="Percent"
+                                                <input type="number" class="form-control item rounded-pill update_discount_percent"
+                                                    name="percent" placeholder="Percent"
                                                     min="0" max="100" autocomplete="off" required>
                                             </div>
                                             <div class="form-group d-flex justify-content-center mt-3">
                                                 <button type="submit"
-                                                    class="btn btn-info rounded-pill text-white create-accoun mt-3t"
-                                                    id="create_discount">Create</button>
+                                                    class="btn btn-warning rounded-pill text-white create-accoun mt-3t"
+                                                    id="create_discount">Update</button>
                                             </div>
                                         </form>
                                         {{-- <<<<<<<<<<<<<<<<<<<< (^-^) >>>>>>>>>>>>>>>>>>>>>> --}}

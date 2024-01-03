@@ -10,6 +10,28 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function home(){
+        $products = Product::join('discounts', 'products.discount_id', '=', 'discounts.id')
+            ->select('products.*')
+            ->orderByDesc('discounts.discount_percent')
+            ->orderBy('products.price')
+            ->limit(5)
+            ->get();
+        return view('main.home', compact('products'));
+    }
+
+    public function product_detail(string $id){
+        $products = Product::join('discounts', 'products.discount_id', '=', 'discounts.id')
+            ->select('products.*')
+            ->orderByDesc('discounts.discount_percent')
+            ->orderBy('products.price')
+            ->limit(5)
+            ->get();
+        $product = Product::find($id);
+        return view('main.product_detail', compact('product', 'products'));
+    }
+
+
     /**
      * Display a listing of the resource.
      */

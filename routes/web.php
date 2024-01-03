@@ -19,17 +19,25 @@ use App\Http\Controllers\DiscountController;
 //     return view('welcome');
 // });
 
-Route::get('/', [ProductController::class, 'index']);
-Route::get('/get-discounts', [ProductController::class, 'getDiscounts']);
-Route::post('/product-create', [ProductController::class, 'store']);
-Route::post('/discount-create', [DiscountController::class, 'store']);
-Route::get('/discount', [DiscountController::class, 'index']);
-Route::get('/fetch-products', [ProductController::class, 'fetch_products']);
-Route::get('/fetch-discounts', [DiscountController::class, 'fetch_discounts']);
-Route::delete('/delete-product/{id}', [ProductController::class, 'destroy']);
-Route::get('/edit-product/{id}',[ProductController::class, 'edit']);
-Route::get('/edit-discount/{id}',[DiscountController::class, 'edit']);
-Route::post('/update-product/{id}', [ProductController::class, 'update']);
-Route::post('/update-discount/{id}', [DiscountController::class, 'update']);
-Route::get('search-product', [ProductController::class, 'search_products']);
-Route::delete('/delete-discount/{id}', [DiscountController::class, 'destroy']);
+// =======================ADMIN============================
+Route::get('/', [ProductController::class, 'index']);           // view
+// ____________________________Product______________________
+Route::get('/fetch-products', [ProductController::class, 'fetch_products']);            // show all products
+Route::post('/product-create', [ProductController::class, 'store']);                        // create product
+Route::get('/get-discounts', [ProductController::class, 'getDiscounts']);               // load disscount to product
+Route::get('/edit-product/{id}',[ProductController::class, 'edit']);                          // edit product
+Route::post('/update-product/{id}', [ProductController::class, 'update']);              // update product
+Route::delete('/delete-product/{id}', [ProductController::class, 'destroy']);           // delete product
+Route::get('search-product', [ProductController::class, 'search_products']);            // search product
+// Route::get('/discount', [DiscountController::class, 'index']);             
+// __________________________Discount________________________                   
+Route::get('/fetch-discounts', [DiscountController::class, 'fetch_discounts']);         // show all discounts
+Route::post('/discount-create', [DiscountController::class, 'store']);                      // create discount
+Route::get('/edit-discount/{id}',[DiscountController::class, 'edit']);                      // edit discount
+Route::post('/update-discount/{id}', [DiscountController::class, 'update']);            // update discount
+Route::delete('/delete-discount/{id}', [DiscountController::class, 'destroy']);         // delete discount
+
+
+// ========================Client==============================
+Route::get('/home', [ProductController::class, 'home']);                                 // home page client
+Route::get('/details/{id}', [ProductController::class, 'product_detail']);          // product detail page client

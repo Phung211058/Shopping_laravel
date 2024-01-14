@@ -1,9 +1,17 @@
 $(document).ready(function () {
     $(document).on('click', '#discount_option', function (e) {
         e.preventDefault();
+        $('.crt_button').html('');
+        $('.crt_button').append('<a href="#" class="btn d-inline-flex btn-sm btn-primary mx-1" id="create"\
+            <span class=" pe-2">\
+                <i class="bi bi-plus"></i>\
+            </span>\
+            <span>Create</span>\
+        </a>')
         // GET THE BUTTION TO CREATE PRODUCT
         var button_create = $('#create');
         // CALL THE MODAL TO CREATE PRODUCT BY DATA-BS-TARGET ATTRIBUTE
+        button_create.attr('data-bs-toggle', 'modal');
         button_create.attr('data-bs-target', '#createDiscountModal');
 
 

@@ -1,11 +1,22 @@
 $(document).ready(function () {
     // CLICK ON THE OPTION PRODUCT IN THE COLLECTION
     $(document).on('click', '#product_option', function (e) {
+        // window.location.href = '/products';
         e.preventDefault();
+
+        $('.crt_button').html('');
+        $('.crt_button').append('<a href="#" class="btn d-inline-flex btn-sm btn-primary mx-1" id="create"\
+            <span class=" pe-2">\
+                <i class="bi bi-plus"></i>\
+            </span>\
+            <span>Create</span>\
+        </a>')
+
         // GET THE BUTTION TO CREATE PRODUCT
         var button_create = $('#create');
 
         // CALL THE MODAL TO CREATE PRODUCT BY DATA-BS-TARGET ATTRIBUTE
+        button_create.attr('data-bs-toggle', 'modal');
         button_create.attr('data-bs-target', '#createProductModal');
 
         // CHANGE THE HEAD TABLE NAME
@@ -14,6 +25,8 @@ $(document).ready(function () {
         var search_product = document.getElementById('search');
         search_product.classList.remove('search_discount');
         search_product.classList.add('search_product');
+
+        
 
         //_______________________________________________________________________________
         fetch_products();
@@ -57,9 +70,9 @@ $(document).ready(function () {
                                 <td><img alt="" src="/images/' + val.image + ' " class="avatar avatar-sm rounded-circle me-2"></td>\
                                 <td>' + val.name + '</td>\
                                 <td>' + val.category + '</td>\
-                                <td class="text-warning">' + val.formatted_price + '<span class="text-danger"> VND</span> </td>\
+                                <td class="text-warning">' + val.formatted_price + '<span class="text-danger"> ₫</span> </td>\
                                 <td>' + val.discount_name + '</td>\
-                                <td class="text-warning">' + val.formatted_sale_price + '<span class="text-danger"> VND</span></td>\
+                                <td class="text-warning">' + val.formatted_sale_price + '<span class="text-danger"> ₫</span></td>\
                                 <td>' + val.quantity + '</td>\
                                 <td>\
                                     <button type="submit" value=" ' +val.id+ ' " class="btn btn-sm btn-neutral" id="edit_product_btn" data-bs-toggle="modal" data-bs-target="#updateProductModal">Edit</button>\

@@ -20,6 +20,31 @@
   --swiper-pagination-color:  #4A4A4A;
 }
 
+.minus, .plus{
+  background: transparent;
+  border: none;
+  height: 39px;
+  width: 35px;
+}
+.plus:hover, .minus:hover{
+  background-color: #D7DDDF;
+}
+
+.qty{
+  background:transparent;
+  border: none;
+  outline: none;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0; /* Optional: You can adjust the margin as needed */
+}
+
 /* on mobile devices below 600px
  */
 @media screen and (max-width: 600px) {

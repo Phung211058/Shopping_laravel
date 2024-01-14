@@ -38,9 +38,7 @@
             <form role="search" method="get" class="search-form" action="">
                 <input type="search" id="search-form" class="search-field" placeholder="Type and press enter"
                     value="" name="s" />
-                <button type="submit" class="search-submit"><svg class="search">
-                        <use xlink:href="#search"></use>
-                    </svg></button>
+                <button type="submit" class="search-submit"></button>
             </form>
 
             <h5 class="cat-list-title">Browse Categories</h5>
@@ -81,9 +79,6 @@
                 <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false"
                     aria-label="Toggle navigation">
-                    <svg class="navbar-icon">
-                        <use xlink:href="#navbar-icon"></use>
-                    </svg>
                 </button>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar"
                     aria-labelledby="bdNavbarOffcanvasLabel">
@@ -150,9 +145,6 @@
                                     <ul class="d-flex justify-content-end list-unstyled">
                                         <li class="search-item pe-3">
                                             <a href="#" class="search-button">
-                                                {{-- <svg class="search">
-                            <use xlink:href="#search"></use>
-                          </svg> --}}
                                                 <div class="search">
                                                     <i class="bi bi-search"></i>
                                                 </div>
@@ -160,9 +152,6 @@
                                         </li>
                                         <li class="pe-3">
                                             <a href="#">
-                                                {{-- <svg class="user">
-                            <use xlink:href="#user"></use>
-                          </svg> --}}
                                                 <div class="user">
                                                     <i class="bi bi-file-person-fill"></i>
                                                 </div>
@@ -170,9 +159,6 @@
                                         </li>
                                         <li>
                                             <a href="cart.html">
-                                                {{-- <svg class="cart">
-                            <use xlink:href="#cart"></use>
-                          </svg> --}}
                                                 <div class="cart">
                                                     <i class="bi bi-cart-fill"></i>
                                                 </div>
@@ -191,83 +177,44 @@
         <div class="swiper main-swiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    {{-- <div class="container">
-              <div class="row d-flex align-items-center">
-                <div class="col-md-6">
-                  <div class="banner-content">
-                    <h1 class="display-2 text-uppercase text-dark pb-5">Your Products Are Great.</h1>
-                    <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
-                  </div>
-                </div>
-                <div class="col-md-5">
-                  <div class="image-holder">
-                    <img src="{{ asset('images/main/banner-image.png') }}" alt="banner">
-                  </div>
-                </div>
-              </div>
-            </div> --}}
-
                     <div class="container">
-                        <div class="row">
+                        <div class="row mt-5 d-flex justify-content-between ">
                             <div class="col-md-5">
                                 <div class="image-holder">
-                                    <img src="/images/{{ $product->image }}" alt="banner">
+                                    <img src="/images/{{ $product->image }}" alt="banner" class="w-100">
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="banner-content">
-                                    <h1 class="display-2 text-uppercase text-dark pb-5">Your Products Are Great.</h1>
-                                    <a href="shop.html"
-                                        class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop
-                                        Product</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- <div class="container">
-                <div class="row ">
-                    <div class="col-6">
-                        <div class="image-holder">
-                            <img src="/images/{{ $product->image }}" alt="">
-
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-
-                </div>
-                <div class="swiper-slide">
-                    <div class="container">
-                        <div class="row d-flex flex-wrap align-items-center">
-                            <div class="col-md-6">
-                                <div class="banner-content">
-                                    <h1 class="display-2 text-uppercase text-dark pb-5">Technology Hack You Won't Get
-                                    </h1>
-                                    <a href="shop.html"
-                                        class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop
-                                        Product</a>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="image-holder">
-                                    <img src="{{ asset('images/main/earphone_bluetooth.png') }}" alt="banner">
+                                <div class="banner-content d-flex flex-column mt-5">
+                                    <p class="fs-1 text-uppercase text-dark mb-0">{{ $product->name }}</p>
+                                    <del
+                                        class="fs-6 text-secondary fw-bold mt-0">{{ $product->formatted_price }}₫</del>
+                                    <p class="fs-4 text-danger fw-bold mt-0 mb-0">{{ $product->formatted_sale_price }}₫
+                                    </p>
+                                    <p class="fs-6 text-secondary-emphasis">{{ $product->description }}</p>
+                                    <div>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-half text-warning"></i>
+                                        <i class="bi bi-star text-warning"></i>
+                                    </div>
+                                    <div>
+                                        <input type="button" value="-" class="minus">
+                                        <input type="number" step="1" min="1" name="quantity"
+                                            value="1" class="input-text qty text ">
+                                        <input type="button" value="+" class="plus">
+                                    </div>
+                                    <a href=""class="btn btn-black col-4 d-flex justify-content-evenly">
+                                        <span>ADD TO CART</span>
+                                        <i class="bi bi-bag-plus-fill"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="swiper-icon swiper-arrow swiper-arrow-prev">
-            <svg class="chevron-left">
-                <use xlink:href="#chevron-left" />
-            </svg>
-        </div>
-        <div class="swiper-icon swiper-arrow swiper-arrow-next">
-            <svg class="chevron-right">
-                <use xlink:href="#chevron-right" />
-            </svg>
         </div>
     </section>
     <section id="company-services" class="padding-large">
@@ -276,9 +223,6 @@
                 <div class="col-lg-3 col-md-6 pb-3">
                     <div class="icon-box d-flex">
                         <div class="icon-box-icon pe-3 pb-3">
-                            <svg class="cart-outline">
-                                <use xlink:href="#cart-outline" />
-                            </svg>
                         </div>
                         <div class="icon-box-content">
                             <h3 class="card-title text-uppercase text-dark">Free delivery</h3>
@@ -289,9 +233,6 @@
                 <div class="col-lg-3 col-md-6 pb-3">
                     <div class="icon-box d-flex">
                         <div class="icon-box-icon pe-3 pb-3">
-                            <svg class="quality">
-                                <use xlink:href="#quality" />
-                            </svg>
                         </div>
                         <div class="icon-box-content">
                             <h3 class="card-title text-uppercase text-dark">Quality guarantee</h3>
@@ -302,9 +243,6 @@
                 <div class="col-lg-3 col-md-6 pb-3">
                     <div class="icon-box d-flex">
                         <div class="icon-box-icon pe-3 pb-3">
-                            <svg class="price-tag">
-                                <use xlink:href="#price-tag" />
-                            </svg>
                         </div>
                         <div class="icon-box-content">
                             <h3 class="card-title text-uppercase text-dark">Daily offers</h3>
@@ -315,9 +253,6 @@
                 <div class="col-lg-3 col-md-6 pb-3">
                     <div class="icon-box d-flex">
                         <div class="icon-box-icon pe-3 pb-3">
-                            <svg class="shield-plus">
-                                <use xlink:href="#shield-plus" />
-                            </svg>
                         </div>
                         <div class="icon-box-content">
                             <h3 class="card-title text-uppercase text-dark">100% secure payment</h3>
@@ -349,9 +284,7 @@
                                     <div class="cart-concern position-absolute">
                                         <div class="cart-button d-flex">
                                             <a href="/details/{{ $product->id }}"
-                                                class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline">
-                                                    <use xlink:href="#cart-outline"></use>
-                                                </svg></a>
+                                                class="btn btn-medium btn-black">Add to Cart</a>
                                         </div>
                                     </div>
                                     <div class="card-detail justify-content-between align-items-baseline pt-3">
@@ -365,79 +298,6 @@
                                 </div>
                             </div>
                         @endforeach
-
-                        {{-- <div class="swiper-slide">
-                <div class="product-card position-relative">
-                  <div class="image-holder">
-                    <img src="images/product-item2.jpg" alt="product-item" class="img-fluid">
-                  </div>
-                  <div class="cart-concern position-absolute">
-                    <div class="cart-button d-flex">
-                      <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                    </div>
-                  </div>
-                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                    <h3 class="card-title text-uppercase">
-                      <a href="#">Iphone 11</a>
-                    </h3>
-                    <span class="item-price text-primary">$1100</span>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="product-card position-relative">
-                  <div class="image-holder">
-                    <img src="images/product-item3.jpg" alt="product-item" class="img-fluid">
-                  </div>
-                  <div class="cart-concern position-absolute">
-                    <div class="cart-button d-flex">
-                      <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                    </div>
-                  </div>
-                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                    <h3 class="card-title text-uppercase">
-                      <a href="#">Iphone 8</a>
-                    </h3>
-                    <span class="item-price text-primary">$780</span>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="product-card position-relative">
-                  <div class="image-holder">
-                    <img src="images/product-item4.jpg" alt="product-item" class="img-fluid">
-                  </div>
-                  <div class="cart-concern position-absolute">
-                    <div class="cart-button d-flex">
-                      <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                    </div>
-                  </div>
-                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                    <h3 class="card-title text-uppercase">
-                      <a href="#">Iphone 13</a>
-                    </h3>
-                    <span class="item-price text-primary">$1500</span>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="product-card position-relative">
-                  <div class="image-holder">
-                    <img src="images/product-item5.jpg" alt="product-item" class="img-fluid">
-                  </div>
-                  <div class="cart-concern position-absolute">
-                    <div class="cart-button d-flex">
-                      <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                    </div>
-                  </div>
-                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                    <h3 class="card-title text-uppercase">
-                      <a href="#">Iphone 12</a>
-                    </h3>
-                    <span class="item-price text-primary">$1300</span>
-                  </div>
-                </div>
-              </div> --}}
                     </div>
                 </div>
             </div>
@@ -462,10 +322,7 @@
                                 </div>
                                 <div class="cart-concern position-absolute">
                                     <div class="cart-button d-flex">
-                                        <a href="#" class="btn btn-medium btn-black">Add to Cart<svg
-                                                class="cart-outline">
-                                                <use xlink:href="#cart-outline"></use>
-                                            </svg></a>
+                                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
                                     </div>
                                 </div>
                                 <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
@@ -483,10 +340,7 @@
                                 </div>
                                 <div class="cart-concern position-absolute">
                                     <div class="cart-button d-flex">
-                                        <a href="#" class="btn btn-medium btn-black">Add to Cart<svg
-                                                class="cart-outline">
-                                                <use xlink:href="#cart-outline"></use>
-                                            </svg></a>
+                                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
                                     </div>
                                 </div>
                                 <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
@@ -504,10 +358,7 @@
                                 </div>
                                 <div class="cart-concern position-absolute">
                                     <div class="cart-button d-flex">
-                                        <a href="#" class="btn btn-medium btn-black">Add to Cart<svg
-                                                class="cart-outline">
-                                                <use xlink:href="#cart-outline"></use>
-                                            </svg></a>
+                                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
                                     </div>
                                 </div>
                                 <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
@@ -525,10 +376,7 @@
                                 </div>
                                 <div class="cart-concern position-absolute">
                                     <div class="cart-button d-flex">
-                                        <a href="#" class="btn btn-medium btn-black">Add to Cart<svg
-                                                class="cart-outline">
-                                                <use xlink:href="#cart-outline"></use>
-                                            </svg></a>
+                                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
                                     </div>
                                 </div>
                                 <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
@@ -546,10 +394,7 @@
                                 </div>
                                 <div class="cart-concern position-absolute">
                                     <div class="cart-button d-flex">
-                                        <a href="#" class="btn btn-medium btn-black">Add to Cart<svg
-                                                class="cart-outline">
-                                                <use xlink:href="#cart-outline"></use>
-                                            </svg></a>
+                                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
                                     </div>
                                 </div>
                                 <div class="card-detail d-flex justify-content-between pt-3">
@@ -649,15 +494,9 @@
                 <div class="review-content position-relative">
                     <div
                         class="swiper-icon swiper-arrow swiper-arrow-prev position-absolute d-flex align-items-center">
-                        <svg class="chevron-left">
-                            <use xlink:href="#chevron-left" />
-                        </svg>
                     </div>
                     <div class="swiper testimonial-swiper">
                         <div class="quotation text-center">
-                            <svg class="quote">
-                                <use xlink:href="#quote" />
-                            </svg>
                         </div>
                         <div class="swiper-wrapper">
                             <div class="swiper-slide text-center d-flex justify-content-center">
@@ -667,21 +506,6 @@
                                         sagittis lorem habi mattis Pellen tesque pretium feugiat vel morbi suspen dise
                                         sagittis lorem habi tasse morbi.”</blockquote>
                                     <div class="rating">
-                                        <svg class="star star-fill">
-                                            <use xlink:href="#star-fill"></use>
-                                        </svg>
-                                        <svg class="star star-fill">
-                                            <use xlink:href="#star-fill"></use>
-                                        </svg>
-                                        <svg class="star star-fill">
-                                            <use xlink:href="#star-fill"></use>
-                                        </svg>
-                                        <svg class="star star-half">
-                                            <use xlink:href="#star-half"></use>
-                                        </svg>
-                                        <svg class="star star-empty">
-                                            <use xlink:href="#star-empty"></use>
-                                        </svg>
                                     </div>
                                     <div class="author-detail">
                                         <div class="name text-dark text-uppercase pt-2">Emma Chamberlin</div>
@@ -695,21 +519,6 @@
                                         independently. A blog may include articles, short posts, listicles,
                                         infographics, videos, and other digital content.”</blockquote>
                                     <div class="rating">
-                                        <svg class="star star-fill">
-                                            <use xlink:href="#star-fill"></use>
-                                        </svg>
-                                        <svg class="star star-fill">
-                                            <use xlink:href="#star-fill"></use>
-                                        </svg>
-                                        <svg class="star star-fill">
-                                            <use xlink:href="#star-fill"></use>
-                                        </svg>
-                                        <svg class="star star-half">
-                                            <use xlink:href="#star-half"></use>
-                                        </svg>
-                                        <svg class="star star-empty">
-                                            <use xlink:href="#star-empty"></use>
-                                        </svg>
                                     </div>
                                     <div class="author-detail">
                                         <div class="name text-dark text-uppercase pt-2">Jennie Rose</div>
@@ -720,9 +529,6 @@
                     </div>
                     <div
                         class="swiper-icon swiper-arrow swiper-arrow-next position-absolute d-flex align-items-center">
-                        <svg class="chevron-right">
-                            <use xlink:href="#chevron-right" />
-                        </svg>
                     </div>
                 </div>
             </div>
@@ -765,9 +571,6 @@
                         <a href="https://templatesjungle.com/" class="image-link position-relative">
                             <img src="images/insta-item1.jpg" alt="instagram" class="insta-image">
                             <div class="icon-overlay position-absolute d-flex justify-content-center">
-                                <svg class="instagram">
-                                    <use xlink:href="#instagram"></use>
-                                </svg>
                             </div>
                         </a>
                     </figure>
@@ -775,9 +578,6 @@
                         <a href="https://templatesjungle.com/" class="image-link position-relative">
                             <img src="images/insta-item2.jpg" alt="instagram" class="insta-image">
                             <div class="icon-overlay position-absolute d-flex justify-content-center">
-                                <svg class="instagram">
-                                    <use xlink:href="#instagram"></use>
-                                </svg>
                             </div>
                         </a>
                     </figure>
@@ -785,9 +585,6 @@
                         <a href="https://templatesjungle.com/" class="image-link position-relative">
                             <img src="images/insta-item3.jpg" alt="instagram" class="insta-image">
                             <div class="icon-overlay position-absolute d-flex justify-content-center">
-                                <svg class="instagram">
-                                    <use xlink:href="#instagram"></use>
-                                </svg>
                             </div>
                         </a>
                     </figure>
@@ -795,9 +592,6 @@
                         <a href="https://templatesjungle.com/" class="image-link position-relative">
                             <img src="images/insta-item4.jpg" alt="instagram" class="insta-image">
                             <div class="icon-overlay position-absolute d-flex justify-content-center">
-                                <svg class="instagram">
-                                    <use xlink:href="#instagram"></use>
-                                </svg>
                             </div>
                         </a>
                     </figure>
@@ -805,9 +599,6 @@
                         <a href="https://templatesjungle.com/" class="image-link position-relative">
                             <img src="images/insta-item5.jpg" alt="instagram" class="insta-image">
                             <div class="icon-overlay position-absolute d-flex justify-content-center">
-                                <svg class="instagram">
-                                    <use xlink:href="#instagram"></use>
-                                </svg>
                             </div>
                         </a>
                     </figure>
@@ -829,37 +620,22 @@
                                     <ul class="d-flex list-unstyled">
                                         <li>
                                             <a href="#">
-                                                <svg class="facebook">
-                                                    <use xlink:href="#facebook" />
-                                                </svg>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <svg class="instagram">
-                                                    <use xlink:href="#instagram" />
-                                                </svg>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <svg class="twitter">
-                                                    <use xlink:href="#twitter" />
-                                                </svg>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <svg class="linkedin">
-                                                    <use xlink:href="#linkedin" />
-                                                </svg>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <svg class="youtube">
-                                                    <use xlink:href="#youtube" />
-                                                </svg>
                                             </a>
                                         </li>
                                     </ul>
@@ -971,6 +747,7 @@
     </script>
     <script type="text/javascript" src="js/plugins.js"></script>
     <script type="text/javascript" src="{{ asset('js/main/index.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/main/product.js') }}"></script>
 </body>
 
 </html>

@@ -37,15 +37,15 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        $discounts = Discount::all();
-        return view('products.index', compact('products', 'discounts'));
+        // $products = Product::all();
+        // $discounts = Discount::all();
+        return view('products.index');
     }
 
     public function fetch_products()
     { 
         $discounts = Discount::all();
-        $products = Product::all();
+        $products = Product::all()->reverse();
         foreach ($products as $product) {
             // formatted_price IS A VALUE THAT HAVE FOMATTED FROM THE PRICE VALUE IN THE DATABASE
             $product->formatted_price = number_format($product->price, 0, ',', '.');

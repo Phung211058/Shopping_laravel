@@ -85,28 +85,28 @@
                                 <ul class="navbar-nav">
                                     {{-- ______________________PRODUCTS OPTIONS__________________ --}}
                                     <li class="nav-item">
-                                        <button class="nav-link ms-6" id="product_option">
+                                        <a href="/products" class="nav-link ms-6" id="product_option">
                                             <i class="bi bi-basket-fill"></i>
                                             <span>Products</span>
-                                        </button>
+                                        </a>
                                     </li>
                                     {{-- ___________________________!!!!!!!_____________________________ --}}
 
                                     {{-- ______________________DISCOUNTS OPTIONS__________________ --}}
                                     <li class="nav-item">
-                                        <button class="nav-link ms-6" id="discount_option">
+                                        <a href="" class="nav-link ms-6" id="discount_option">
                                             <i class="bi bi-gift-fill"></i>
                                             <span>Discounts</span>
-                                        </button>
+                                        </a>
                                     </li>
                                     {{-- ___________________________!!!!!!!_____________________________ --}}
 
                                     {{-- ______________________PRODUCTS OPTIONS__________________ --}}
                                     <li class="nav-item">
-                                        <button class="nav-link ms-6" id="client">
+                                        <a href="#" class="nav-link ms-6" id="client">
                                             <i class="bi bi-person-badge"></i>
                                             <span>Clients</span>
-                                        </button>
+                                        </a>
                                     </li>
                                     {{-- ___________________________!!!!!!!_____________________________ --}}
 
@@ -326,13 +326,15 @@
                             {{-- $$$$_______________________________________$$$$ --}}
 
                             {{-- __________________CREATE BUTTON________________ --}}
-                            <a href="#" class="btn d-inline-flex btn-sm btn-primary mx-1" id="create"
-                                data-bs-toggle="modal">
-                                <span class=" pe-2">
-                                    <i class="bi bi-plus"></i>
-                                </span>
-                                <span>Create</span>
-                            </a>
+                            <div class="crt_button">
+                                {{-- <a href="#" class="btn d-inline-flex btn-sm btn-primary mx-1" id="create"
+                                    data-bs-toggle="modal">
+                                    <span class=" pe-2">
+                                        <i class="bi bi-plus"></i>
+                                    </span>
+                                    <span>Create</span>
+                                </a> --}}
+                            </div>
                             {{-- __________________________________________________ --}}
                         </div>
                         {{-- <<<<<<<<<<<<<<<<< CREATE PRODUCT MODAL >>>>>>>>>>>>>>>>>>> --}}

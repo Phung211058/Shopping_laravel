@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ use App\Http\Controllers\DiscountController;
 // =======================ADMIN============================
 Route::get('/', [ProductController::class, 'index']);           // view
 // ____________________________Product______________________
-Route::get('/fetch-products', [ProductController::class, 'fetch_products']);            // show all products
+Route::get('/fetch-products', [ProductController::class, 'fetch_products']);            // show all products using ajax
 Route::post('/product-create', [ProductController::class, 'store']);                        // create product
 Route::get('/get-discounts', [ProductController::class, 'getDiscounts']);               // load disscount to product
 Route::get('/edit-product/{id}',[ProductController::class, 'edit']);                          // edit product
@@ -41,3 +42,14 @@ Route::delete('/delete-discount/{id}', [DiscountController::class, 'destroy']); 
 // ========================Client==============================
 Route::get('/home', [ProductController::class, 'home']);                                 // home page client
 Route::get('/details/{id}', [ProductController::class, 'product_detail']);          // product detail page client
+
+
+
+
+// ========================Account============================
+Route::group(['prefix' => 'admin'], function(){
+    Route::get('/login', [UserController::class, 'login']); // login page admin
+    Route::get('/register', [UserController::class, 'register']); // register page admin
+    Route::post('/register', [UserController::class, 'store']); // register admin account
+
+});

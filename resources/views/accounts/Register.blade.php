@@ -20,28 +20,28 @@
   <main>
     <h3 class="text-center mt-3 title">TẠO TÀI KHOẢN</h3>
     <div class="cover">
-      <form action="" method="POST" enctype="multipart/form-data">
+      <form action="#" method="POST" id="register_form" enctype="multipart/form-data">
         @csrf
         <p class="ps-2 mb-2">Tên người dùng</p>
         <div class="surname_box mb-3">
-            <input type="text"  class="in_surname" name="username" autocomplete="off" required min="6" max="20" placeholder=" ">
+            <input type="text"  class="in_surname" name="username" autocomplete="off" required minlength="6" maxlength="20" placeholder=" ">
             <label for="surname" class="surname_label">Username</label>
         </div>
         <p class="ps-2 mb-2">Số điện thoại</p>
         <div class="surname_box mb-3">
-            <input type="text"  class="in_surname" name="phone" autocomplete="off" required min="10" max="10" placeholder=" ">
+            <input type="text"  class="in_surname" name="phone" autocomplete="off" required minlength="10" maxlength="10" placeholder=" ">
             <label for="surname" class="surname_label">Phone number</label>
             <p class="text-danger ms-2 phone_err"></p>
         </div>
         <p class="ps-2 mb-2">Email</p>
         <div class="surname_box mb-3">
-            <input type="email"  class="in_surname" name="email" autocomplete="off" required max="30" placeholder=" ">
+            <input type="email"  class="in_surname" name="email" autocomplete="off" required maxlength="30" placeholder=" ">
             <label for="surname" class="surname_label">Email</label>
             <p class="text-danger ms-2 email_err"></p>
         </div>
         <p class="ps-2 mb-2">Mật khẩu</p>
         <div class="surname_box mb-3">
-            <input type="password"  class="in_surname" name="password" autocomplete="off" required min="8" placeholder=" ">
+            <input type="password"  class="in_surname" name="password" autocomplete="off" required minlength="8" placeholder=" ">
             <label for="surname" class="surname_label">Password</label>
         </div>
         <p class="ps-2 mb-2">Xác nhận mật khẩu</p>

@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function login(){
+    public function viewLogin(){
         return view('accounts.Login');
     }
-    public function register(){
+    public function viewRegister(){
         return view('accounts.Register');
     }
 
@@ -35,11 +35,30 @@ class UserController extends Controller
             $user->name = $request->username;
             $user->phone = $request->phone;
             $user->email = $request->email;
-            $user->passward = $request->password;
+            $user->password = Hash::make($request->password);
             $user->role = 2;
             $user->save();
             return response()->json([
                 'status' => 200,
+                'message' => 'Successfully',
+            ]);
+        }
+    }
+
+    public function login(Request $request){
+        if(Auth::attempt([
+            'email' => $request->email,
+            'password' => $request->password
+        ])){
+            $user = User::where('email',  $request->email)->first();
+            Auth::login($user);
+            return response()->json([
+                'status' => 200
+            ]);
+        }
+        else{
+            return response()->json([
+                'status' => 404
             ]);
         }
     }

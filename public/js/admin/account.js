@@ -67,12 +67,20 @@ $(document).ready(function() {
             contentType: false,
             success: function(response){
                 $('error').text('');
+                
                 if(response.status == 404){
                     $('.error').text('Email or password is incorrect');
                 }
-                else(
+                else{
+                    if(response.status == 403){
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something went wrong!",
+                          });
+                    }
                     window.location.href = "/"
-                )
+                }
             }
         });
     })

@@ -21,7 +21,7 @@ use App\Http\Controllers\UserController;
 // });
 
 // =======================ADMIN============================
-// Route::middleware('LoginAdminCheck')->group(function () {
+Route::middleware(['LoginAdminCheck', 'OnlyDirectorAccess'])->group(function () {
     Route::get('/', [ProductController::class, 'index']);           // view
     // ____________________________Product______________________
     Route::get('/fetch-products', [ProductController::class, 'fetch_products']);            // show all products using ajax
@@ -39,7 +39,7 @@ use App\Http\Controllers\UserController;
     Route::post('/update-discount/{id}', [DiscountController::class, 'update']);            // update discount
     Route::delete('/delete-discount/{id}', [DiscountController::class, 'destroy']);         // delete discount
 
-// });
+});
 
 
 // ========================Client==============================

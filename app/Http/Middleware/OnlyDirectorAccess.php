@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class LoginAdminCheck
+class OnlyDirectorAccess
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,12 @@ class LoginAdminCheck
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check()){
+        if(Auth::user()->role == 4){
             return $next($request);
         }
-        return redirect('/admin/login');
+        return response()->json([
+            'status' => 403,
+            'error' => 'you do not have permission',
+        ]);
     }
 }
